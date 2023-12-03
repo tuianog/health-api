@@ -39,10 +39,18 @@ class AffiliationSerializer(serializers.ModelSerializer):
     child_link = serializers.SerializerMethodField(method_name='parse_child_link')
 
     def parse_parent_link(self, affiliation):
-        return affiliation.hcp_link.id if affiliation.type == 'HCP_HCO' else affiliation.hco_link.id
+        match affiliation.type:
+            case 'HCP_HCO' | 'HCP_HCP':
+                return affiliation.parent_hcp_link.id
+            case 'HCO_HCP' | 'HCO_HCO':
+                return affiliation.parent_hco_link.id
 
     def parse_child_link(self, affiliation):
-        return affiliation.hcp_link.id if affiliation.type == 'HCO_HCP' else affiliation.hco_link.id
+        match affiliation.type:
+            case 'HCP_HCO' | 'HCO_HCO':
+                return affiliation.child_hco_link.id
+            case 'HCO_HCP' | 'HCP_HCP':
+                return affiliation.child_hcp_link.id
     
     class Meta:
         model = Affiliation

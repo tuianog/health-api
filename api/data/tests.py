@@ -1,4 +1,5 @@
 from django.test import TestCase
+from rest_framework.validators import ValidationError
 from django.db.utils import DataError
 from rest_framework.test import APIRequestFactory, force_authenticate
 from django.contrib.auth.models import User
@@ -209,26 +210,32 @@ class AffiliationCase(TestCase):
         self.factory = APIRequestFactory()
         self.user = User.objects.create_user('user', 'user@gmail.com', 'pwd')
 
+    def test_create_affiliation_with_invalid_parent_child_type_should_fail(self):
+        hco = HealthCareOrganization.objects.create(name='hco', status='I')
+        with self.assertRaises(ValidationError):
+            Affiliation.create(parent_hco_link=hco, child_hco_link=hco, type='HCO_HCP')
+
     def test_create_affiliation_hco_hcp_has_expected_properties(self):
         hco = HealthCareOrganization.objects.create(name='hco', status='I')
         hcp = HealthCareProvider.objects.create(name='hcp', status='I')
 
-        affiliation = Affiliation.objects.create(hcp_link=hcp, hco_link=hco, status='A', type='HCP_HCO')
+        affiliation = Affiliation.create(child_hcp_link=hcp, parent_hco_link=hco, status='A', type='HCO_HCP')
         
         affiliation_fetched = Affiliation.objects.get(id=affiliation.id)
         
-        self.assertEqual(affiliation_fetched.hco_link, hco)
-        self.assertEqual(affiliation_fetched.hcp_link, hcp)
+        self.assertEqual(affiliation_fetched.parent_hco_link, hco)
+        self.assertEqual(affiliation_fetched.child_hcp_link, hcp)
         self.assertEqual(affiliation_fetched.status, 'A')
-        self.assertEqual(affiliation_fetched.type, 'HCP_HCO')
-
+        self.assertEqual(affiliation_fetched.type, 'HCO_HCP')
 
     def test_endpoint_admin_get_all_affiliation_should_return_expected_result(self):
         hco = HealthCareOrganization.objects.create(name='hco', status='I')
         hcp = HealthCareProvider.objects.create(name='hcp', status='I')
+        hcp2 = HealthCareProvider.objects.create(name='hcp', status='I')
 
-        affiliation1 = Affiliation.objects.create(hcp_link=hcp, hco_link=hco, status='A', type='HCP_HCO')
-        affiliation2 = Affiliation.objects.create(hcp_link=hcp, hco_link=hco, status='A', type='HCO_HCP')
+        affiliation1 = Affiliation.create(parent_hcp_link=hcp, child_hco_link=hco, status='A', type='HCP_HCO')
+        affiliation2 = Affiliation.create(child_hcp_link=hcp, parent_hco_link=hco, status='A', type='HCO_HCP')
+        affiliation3 = Affiliation.create(parent_hcp_link=hcp, child_hcp_link=hcp2, status='A', type='HCP_HCP')
 
         request = self.factory.get('/v1/admin/affiliation/')
         force_authenticate(request, user=self.user)
@@ -242,7 +249,7 @@ class AffiliationCase(TestCase):
             'Content-Type': 'application/json'
         }.items())
         self.assertGreaterEqual(parsed_response_data.items(), {
-            'count': 2,
+            'count': 3,
             'previous': None,
             'next': None,
         }.items())
@@ -258,12 +265,18 @@ class AffiliationCase(TestCase):
             'parent_link': hco.id,
             'child_link': hcp.id,
         }.items())
+        parsed_result_items = dict(parsed_response_data['results'][2])
+        self.assertGreaterEqual(parsed_result_items.items(), {
+            'id': affiliation3.id,
+            'parent_link': hcp.id,
+            'child_link': hcp2.id,
+        }.items())
 
     def test_endpoint_get_affiliation_by_id_should_return_expected_result(self):
         hco = HealthCareOrganization.objects.create(name='hco', status='I')
         hcp = HealthCareProvider.objects.create(name='hcp', status='I')
 
-        affiliation = Affiliation.objects.create(hcp_link=hcp, hco_link=hco, status='A', type='HCP_HCO')
+        affiliation = Affiliation.create(parent_hcp_link=hcp, child_hco_link=hco, status='A', type='HCP_HCO')
 
         request = self.factory.get(f'/v1/affiliation/{affiliation.id}')
         force_authenticate(request, user=self.user)

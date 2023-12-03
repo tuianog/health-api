@@ -81,8 +81,8 @@ class DataProcessor:
         provider_entity.save()
         return provider_entity
     
-    def save_affiliation(self, affiliation, hco_entity, hcp_entity):
-        affiliation_entity = Affiliation(**DataProcessor.map_affiliation(affiliation, hco_entity, hcp_entity))
+    def save_affiliation(self, affiliation, **kwargs):
+        affiliation_entity = Affiliation.create(**DataProcessor.map_affiliation(affiliation, **kwargs))
         affiliation_entity.save()
         return affiliation_entity
 
@@ -109,13 +109,21 @@ class DataProcessor:
         for affiliation in affiliations:
             match affiliation['type']:
                 case 'HCP_HCO':
-                    hcp_link = hcp_entities[affiliation['parent_link']-1]
-                    hco_link = hco_entities[affiliation['child_link']-1]
-                    self.save_affiliation(affiliation, hco_link, hcp_link)
+                    parent_hcp_link = hcp_entities[affiliation['parent_link']-1]
+                    child_hco_link = hco_entities[affiliation['child_link']-1]
+                    self.save_affiliation(affiliation, parent_hcp_link=parent_hcp_link, child_hco_link=child_hco_link)
                 case 'HCO_HCP':
-                    hcp_link = hcp_entities[affiliation['child_link']-1]
-                    hco_link = hco_entities[affiliation['parent_link']-1]
-                    self.save_affiliation(affiliation, hco_link, hcp_link)
+                    parent_hco_link = hco_entities[affiliation['parent_link']-1]
+                    child_hcp_link = hcp_entities[affiliation['child_link']-1]
+                    self.save_affiliation(affiliation, parent_hco_link=parent_hco_link, child_hcp_link=child_hcp_link)
+                case 'HCP_HCP':
+                    parent_hcp_link = hcp_entities[affiliation['parent_link']-1]
+                    child_hcp_link = hcp_entities[affiliation['child_link']-1]
+                    self.save_affiliation(affiliation, parent_hcp_link=parent_hcp_link, child_hcp_link=child_hcp_link)
+                case 'HCO_HCO':
+                    parent_hco_link = hco_entities[affiliation['parent_link']-1]
+                    child_hco_link = hco_entities[affiliation['child_link']-1]
+                    self.save_affiliation(affiliation, parent_hco_link=parent_hco_link, child_hco_link=child_hco_link)
                     
     @staticmethod
     def map_address(address_entity):
@@ -144,10 +152,12 @@ class DataProcessor:
         }
     
     @staticmethod
-    def map_affiliation(affiliation_entity, hco_entity, hcp_entity):
+    def map_affiliation(affiliation_entity, parent_hco_link=None, parent_hcp_link=None, child_hcp_link=None, child_hco_link=None):
         return {
             'type': affiliation_entity['type'],
             'status': affiliation_entity['status'],
-            'hcp_link': hcp_entity,
-            'hco_link': hco_entity
+            'parent_hco_link': parent_hco_link,
+            'parent_hcp_link': parent_hcp_link,
+            'child_hcp_link': child_hcp_link,
+            'child_hco_link': child_hco_link
         }

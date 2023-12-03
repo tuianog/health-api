@@ -62,10 +62,12 @@ class AffiliationAdmin(admin.ModelAdmin):
     fieldsets = [
         (None,               {'fields': ['type']}),
         (None,               {'fields': ['status']}),
-        (None,               {'fields': ['hcp_link']}),
-        (None,               {'fields': ['hco_link']}),
+        (None,               {'fields': ['parent_hcp_link']}),
+        (None,               {'fields': ['parent_hco_link']}),
+        (None,               {'fields': ['child_hcp_link']}),
+        (None,               {'fields': ['child_hco_link']}),
     ]
-    list_display = ('type', 'status', 'hcp_link', 'hcp_link')
+    list_display = ('type', 'status', 'parent_hcp_link', 'parent_hco_link', 'child_hcp_link', 'child_hco_link')
 
 
 admin.site.register(Affiliation, AffiliationAdmin)
