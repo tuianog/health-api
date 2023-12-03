@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "name": "ABC Hospital",
+        "address_link": 11,
+        "status": "A"
+    },
+    {
+        "id": 2,
+        "name": "XYZ Clinic",
+        "address_link": 12,
+        "status": "A"
+    },
+    {
+        "id": 3,
+        "name": "City Medical Center",
+        "address_link": 13,
+        "status": "I"
+    },
+    {
+        "id": 4,
+        "name": "Community Health Services",
+        "address_link": 14,
+        "status": "A"
+    },
+    {
+        "id": 5,
+        "name": "Healthcare Solutions Inc.",
+        "address_link": 15,
+        "status": "I"
+    },
+    {
+        "id": 6,
+        "name": "Global Wellness Group",
+        "address_link": 16,
+        "status": "A"
+    },
+    {
+        "id": 7,
+        "name": "Regional Medical Associates",
+        "address_link": 17,
+        "status": "A"
+    },
+    {
+        "id": 8,
+        "name": "Nationwide Healthcare",
+        "address_link": 18,
+        "status": "I"
+    },
+    {
+        "id": 9,
+        "name": "Quality Care Network",
+        "address_link": 19,
+        "status": "A"
+    },
+    {
+        "id": 10,
+        "name": "MediCo Health",
+        "address_link": 20,
+        "status": "I"
+    }
+]

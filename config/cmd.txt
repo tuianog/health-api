@@ -1,0 +1,12 @@
+psql -h localhost -d postgres -U postgres -W
+
+list databases: \l;
+list users: \du;
+
+create user: CREATE USER anogueira WITH PASSWORD 'changeme';
+create database: CREATE DATABASE dev OWNER anogueira;
+select database: \c dev;
+show tables: \dt;
+
+allow user to create databases (for testing):
+ALTER USER anogueira CREATEDB;

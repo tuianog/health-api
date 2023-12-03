@@ -1,0 +1,444 @@
+openapi: 3.0.3
+info:
+  title: health-api
+  version: 1.0.0
+  description: Simple REST API for a health use case
+paths:
+  /api/v1/admin/address/:
+    get:
+      operationId: admin_address_retrieve
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/status'
+      tags:
+      - admin
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          description: Admin Get all addresses
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Addresses'
+
+  /api/v1/admin/affiliation/:
+    get:
+      operationId: admin_affiliation_retrieve
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/status'
+      tags:
+      - admin
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          description: Admin Get all affiliations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count: 
+                    type: integer
+                  next: 
+                    type: string
+                  previous: 
+                    type: string
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Affiliation'
+
+  /api/v1/admin/hco/:
+    get:
+      operationId: admin_hco_retrieve
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/status'
+      tags:
+      - admin
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          description: Admin Get all Healthcare Organizations
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count: 
+                    type: integer
+                  next: 
+                    type: string
+                  previous: 
+                    type: string
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/HCO'
+
+  /api/v1/admin/hcp/:
+    get:
+      operationId: admin_hcp_retrieve
+      parameters:
+        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/status'
+      tags:
+      - admin
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          description: Admin Get all Healthcare Providers
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  count: 
+                    type: integer
+                  next: 
+                    type: string
+                  previous: 
+                    type: string
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/HCP'
+
+  /api/v1/affiliation/{affiliation_id}/:
+    get:
+      operationId: affiliation_retrieve
+      parameters:
+      - in: path
+        name: affiliation_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - affiliation
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '200':
+          description: Get Affiliation by ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliation'
+                      
+  /api/v1/auth/:
+    post:
+      operationId: auth_create
+      tags:
+      - auth
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthToken'
+        required: true
+      security:
+      - tokenAuth: []
+      - cookieAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthToken'
+          description: 'The auth token'
+
+  /api/v1/hco/{organization_id}/:
+    get:
+      operationId: hco_retrieve
+      parameters:
+      - in: path
+        name: organization_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - hco
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '200':
+          description: Get HCO by ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HCO'
+
+  /api/v1/hco/{organization_id}/address/:
+    get:
+      operationId: hco_addresses_retrieve
+      parameters:
+      - in: path
+        name: organization_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - hco
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          description: Get all addresses by HCO ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Addresses'
+  
+  /api/v1/hco/{organization_id}/address/{address_id}:
+    get:
+      operationId: hco_address_retrieve
+      parameters:
+      - in: path
+        name: organization_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: address_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - hco
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          description: Get address by HCO and address IDs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+
+  /api/v1/hcp/{provider_id}/:
+    get:
+      operationId: hcp_retrieve
+      parameters:
+      - in: path
+        name: provider_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - hcp
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '200':
+          description: Get HCP by ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HCP'
+
+  /api/v1/hcp/{provider_id}/address/:
+    get:
+      operationId: hcp_addresses_retrieve
+      parameters:
+      - in: path
+        name: provider_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - hcp
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          description: Get all addresses by HCP ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Addresses'
+
+  /api/v1/hcp/{provider_id}/address/{address_id}:
+    get:
+      operationId: hcp_address_retrieve
+      parameters:
+      - in: path
+        name: provider_id
+        schema:
+          type: string
+        required: true
+      - in: path
+        name: address_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - hcp
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          description: Get addresses by HCP and address IDs
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Address'
+
+components:
+  schemas:
+    AuthToken:
+      type: object
+      properties:
+        username:
+          type: string
+          writeOnly: true
+        password:
+          type: string
+          writeOnly: true
+        token:
+          type: string
+          readOnly: true
+      required:
+      - password
+      - token
+      - username
+    StatusField:
+      type: string
+      enum: ['A', 'I']
+    HCP:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        status: 
+          $ref: '#/components/schemas/StatusField'
+    HCO:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        status: 
+          $ref: '#/components/schemas/StatusField'
+    Affiliation:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum: ['HCP_HCO', 'HCO_HCP']
+        status: 
+          $ref: '#/components/schemas/StatusField'
+        parent_link:
+          type: string
+        child_link:
+          type: string
+    Address:
+      type: object
+      properties:
+        id:
+          type: string
+        parent_type:
+          type: string
+          enum: ['hco', 'hpo']
+        addr1:
+          type: string
+        addr2:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        status:
+          $ref: '#/components/schemas/StatusField'
+    Addresses:
+      type: object
+      properties:
+        count: 
+          type: integer
+        next: 
+          type: string
+        previous: 
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+  responses:
+    NotFound:
+      description: 'Not found'
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              detail:
+                type: string
+                enum: ['Not found.']
+  parameters:
+    status:
+      in: query
+      name: status
+      schema:
+        type: string
+        enum: ['A', 'I']
+      required: false
+    offset: 
+      in: query
+      name: offset
+      schema:
+        type: integer
+      required: false
+    limit:
+      in: query
+      name: limit
+      schema:
+        type: integer
+      required: false
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
+    tokenAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Token-based authentication with required prefix "Token"

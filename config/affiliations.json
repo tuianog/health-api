@@ -1,0 +1,72 @@
+[
+    {
+        "id": 1,
+        "parent_link": 1,
+        "child_link": 2,
+        "status": "A",
+        "type": "HCP_HCP"
+    },
+    {
+        "id": 2,
+        "parent_link": 1,
+        "child_link": 3,
+        "status": "A",
+        "type": "HCP_HCP"
+    },
+    {
+        "id": 3,
+        "parent_link": 2,
+        "child_link": 4,
+        "status": "I",
+        "type": "HCP_HCP"
+    },
+    {
+        "id": 4,
+        "parent_link": 4,
+        "child_link": 5,
+        "status": "A",
+        "type": "HCP_HCP"
+    },
+    {
+        "id": 5,
+        "parent_link": 6,
+        "child_link": 7,
+        "status": "A",
+        "type": "HCP_HCP"
+    },
+    {
+        "id": 6,
+        "parent_link": 7,
+        "child_link": 8,
+        "status": "A",
+        "type": "HCP_HCP"
+    },
+    {
+        "id": 7,
+        "parent_link": 1,
+        "child_link": 1,
+        "status": "A",
+        "type": "HCP_HCO"
+    },
+    {
+        "id": 8,
+        "parent_link": 3,
+        "child_link": 6,
+        "status": "I",
+        "type": "HCP_HCO"
+    },
+    {
+        "id": 9,
+        "parent_link": 5,
+        "child_link": 9,
+        "status": "A",
+        "type": "HCP_HCO"
+    },
+    {
+        "id": 10,
+        "parent_link": 8,
+        "child_link": 10,
+        "status": "I",
+        "type": "HCP_HCO"
+    }
+]

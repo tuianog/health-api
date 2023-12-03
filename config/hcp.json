@@ -1,0 +1,62 @@
+[
+    {
+        "id": 1,
+        "name": "John Doe",
+        "address_link": 1,
+        "status": "A"
+    },
+    {
+        "id": 2,
+        "name": "Jane Smith",
+        "address_link": 2,
+        "status": "A"
+    },
+    {
+        "id": 3,
+        "name": "Michael Johnson",
+        "address_link": 3,
+        "status": "I"
+    },
+    {
+        "id": 4,
+        "name": "Emily Adams",
+        "address_link": 4,
+        "status": "A"
+    },
+    {
+        "id": 5,
+        "name": "Robert Lee",
+        "address_link": 5,
+        "status": "I"
+    },
+    {
+        "id": 6,
+        "name": "Sarah Brown",
+        "address_link": 6,
+        "status": "A"
+    },
+    {
+        "id": 7,
+        "name": "William Taylor",
+        "address_link": 7,
+        "status": "A"
+    },
+    {
+        "id": 8,
+        "name": "Olivia White",
+        "address_link": 8,
+        "status": "I"
+    },
+    {
+        "id": 9,
+        "name": "James Wilson",
+        "address_link": 9,
+        "status": "A"
+    },
+    {
+        "id": 10,
+        "name": "Ava Anderson",
+        "address_link": 10,
+        "status": "I"
+    }
+]

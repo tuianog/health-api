@@ -1,0 +1,222 @@
+[
+    {
+        "id": 1,
+        "parent_link": 1,
+        "parent_type": "HCP",
+        "addr1": "123 Main Street",
+        "addr2": "Suite 101",
+        "city": "New York City",
+        "state": "NY",
+        "zip": "10001",
+        "status": "A"
+    },
+    {
+        "id": 2,
+        "parent_link": 2,
+        "parent_type": "HCP",
+        "addr1": "456 Park Avenue",
+        "addr2": null,
+        "city": "Los Angeles",
+        "state": "CA",
+        "zip": "90001",
+        "status": "A"
+    },
+    {
+        "id": 3,
+        "parent_link": 3,
+        "parent_type": "HCP",
+        "addr1": "789 First Street",
+        "addr2": "Unit B",
+        "city": "Chicago",
+        "state": "IL",
+        "zip": "60601",
+        "status": "I"
+    },
+    {
+        "id": 4,
+        "parent_link": 4,
+        "parent_type": "HCP",
+        "addr1": "101 Second Avenue",
+        "addr2": null,
+        "city": "Houston",
+        "state": "TX",
+        "zip": "77001",
+        "status": "A"
+    },
+    {
+        "id": 5,
+        "parent_link": 5,
+        "parent_type": "HCP",
+        "addr1": "555 Elm Road",
+        "addr2": "Apt 3C",
+        "city": "Miami",
+        "state": "FL",
+        "zip": "33101",
+        "status": "I"
+    },
+    {
+        "id": 6,
+        "parent_link": 6,
+        "parent_type": "HCP",
+        "addr1": "777 Oak Lane",
+        "addr2": null,
+        "city": "San Francisco",
+        "state": "CA",
+        "zip": "94101",
+        "status": "A"
+    },
+    {
+        "id": 7,
+        "parent_link": 7,
+        "parent_type": "HCP",
+        "addr1": "999 Maple Street",
+        "addr2": "Suite 201",
+        "city": "Seattle",
+        "state": "WA",
+        "zip": "98101",
+        "status": "A"
+    },
+    {
+        "id": 8,
+        "parent_link": 8,
+        "parent_type": "HCP",
+        "addr1": "222 Pine Avenue",
+        "addr2": "Unit 10",
+        "city": "Boston",
+        "state": "MA",
+        "zip": "02101",
+        "status": "I"
+    },
+    {
+        "id": 9,
+        "parent_link": 9,
+        "parent_type": "HCP",
+        "addr1": "333 Cedar Drive",
+        "addr2": null,
+        "city": "Denver",
+        "state": "CO",
+        "zip": "80201",
+        "status": "A"
+    },
+    {
+        "id": 10,
+        "parent_link": 10,
+        "parent_type": "HCP",
+        "addr1": "444 Walnut Circle",
+        "addr2": "Apt 5B",
+        "city": "Phoenix",
+        "state": "AZ",
+        "zip": "85001",
+        "status": "I"
+    },
+    {
+        "id": 11,
+        "parent_link": 1,
+        "parent_type": "HCO",
+        "addr1": "100 Hospital Road",
+        "addr2": null,
+        "city": "New York City",
+        "state": "NY",
+        "zip": "10001",
+        "status": "A"
+    },
+    {
+        "id": 12,
+        "parent_link": 2,
+        "parent_type": "HCO",
+        "addr1": "200 Clinic Avenue",
+        "addr2": "Suite 300",
+        "city": "Los Angeles",
+        "state": "CA",
+        "zip": "90001",
+        "status": "A"
+    },
+    {
+        "id": 13,
+        "parent_link": 3,
+        "parent_type": "HCO",
+        "addr1": "300 Medical Center Drive",
+        "addr2": null,
+        "city": "Chicago",
+        "state": "IL",
+        "zip": "60601",
+        "status": "I"
+    },
+    {
+        "id": 14,
+        "parent_link": 4,
+        "parent_type": "HCO",
+        "addr1": "400 Health Street",
+        "addr2": "Unit A",
+        "city": "Houston",
+        "state": "TX",
+        "zip": "77001",
+        "status": "A"
+    },
+    {
+        "id": 15,
+        "parent_link": 5,
+        "parent_type": "HCO",
+        "addr1": "500 Wellness Road",
+        "addr2": null,
+        "city": "Miami",
+        "state": "FL",
+        "zip": "33101",
+        "status": "I"
+    },
+    {
+        "id": 16,
+        "parent_link": 6,
+        "parent_type": "HCO",
+        "addr1": "600 Global Avenue",
+        "addr2": "Suite 200",
+        "city": "San Francisco",
+        "state": "CA",
+        "zip": "94101",
+        "status": "A"
+    },
+    {
+        "id": 17,
+        "parent_link": 7,
+        "parent_type": "HCO",
+        "addr1": "700 Regional Drive",
+        "addr2": null,
+        "city": "Seattle",
+        "state": "WA",
+        "zip": "98101",
+        "status": "A"
+    },
+    {
+        "id": 18,
+        "parent_link": 8,
+        "parent_type": "HCO",
+        "addr1": "800 Nationwide Lane",
+        "addr2": "Unit 20",
+        "city": "Boston",
+        "state": "MA",
+        "zip": "02101",
+        "status": "I"
+    },
+    {
+        "id": 19,
+        "parent_link": 9,
+        "parent_type": "HCO",
+        "addr1": "900 Care Circle",
+        "addr2": null,
+        "city": "Denver",
+        "state": "CO",
+        "zip": "80201",
+        "status": "A"
+    },
+    {
+        "id": 20,
+        "parent_link": 10,
+        "parent_type": "HCO",
+        "addr1": "1000 Health Avenue",
+        "addr2": "Apt 50C",
+        "city": "Phoenix",
+        "state": "AZ",
+        "zip": "85001",
+        "status": "I"
+    }
+]
