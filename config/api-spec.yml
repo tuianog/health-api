@@ -242,6 +242,28 @@ paths:
               schema:
                 $ref: '#/components/schemas/Address'
 
+  /api/v1/hco/{organization_id}/affiliation/:
+    get:
+      operationId: hco_affiliation_retrieve
+      parameters:
+      - in: path
+        name: organization_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - hco
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          description: Get all afiliations by HCO ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliations'
+
   /api/v1/hcp/{provider_id}/:
     get:
       operationId: hcp_retrieve
@@ -315,6 +337,28 @@ paths:
               schema:
                 $ref: '#/components/schemas/Address'
 
+  /api/v1/hcp/{provider_id}/affiliation/:
+    get:
+      operationId: hcp_affiliations_retrieve
+      parameters:
+      - in: path
+        name: provider_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - hcp
+      security:
+      - cookieAuth: []
+      - tokenAuth: []
+      responses:
+        '200':
+          description: Get all afiliations by HCP ID
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Affiliations'
+
 components:
   schemas:
     AuthToken:
@@ -361,7 +405,7 @@ components:
           type: string
         type:
           type: string
-          enum: ['HCP_HCO', 'HCO_HCP']
+          enum: ['HCP_HCO', 'HCO_HCP', 'HCP_HCP', 'HCO_HCO']
         status: 
           $ref: '#/components/schemas/StatusField'
         parent_link:
@@ -375,7 +419,7 @@ components:
           type: string
         parent_type:
           type: string
-          enum: ['hco', 'hpo']
+          enum: ['hco', 'hcp']
         addr1:
           type: string
         addr2:
@@ -401,6 +445,19 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Address'
+    Affiliations:
+      type: object
+      properties:
+        count: 
+          type: integer
+        next: 
+          type: string
+        previous: 
+          type: string
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Affiliation'
   responses:
     NotFound:
       description: 'Not found'

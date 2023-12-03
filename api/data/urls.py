@@ -9,8 +9,10 @@ urlpatterns = [
     path('hco/<str:organization_id>/', views.get_healthcare_organization_by_id, name='get_healthcare_organization_by_id'),
     path('hco/<str:organization_id>/address/', views.get_healthcare_addresses_by_organization_by_id, name='get_healthcare_addresses_by_organization_by_id'),
     path('hco/<str:organization_id>/address/<str:address_id>/', views.get_healthcare_organization_address_by_id, name='get_healthcare_organization_address_by_id'),
+    path('hco/<str:organization_id>/affiliation/', views.get_healthcare_organization_affiliations, name='get_healthcare_organization_affiliations'),
     path('hcp/<str:provider_id>/', views.get_healthcare_provider_by_id, name='get_healthcare_provider_by_id'),
     path('hcp/<str:provider_id>/address/', views.get_healthcare_addresses_by_provider_by_id, name='get_healthcare_addresses_by_provider_by_id'),
     path('hcp/<str:provider_id>/address/<str:address_id>/', views.get_healthcare_provider_address_by_id, name='get_healthcare_provider_address_by_id'),
+    path('hcp/<str:provider_id>/affiliation/', views.get_healthcare_provider_affiliations, name='get_healthcare_provider_affiliations'),
     path('affiliation/<str:affiliation_id>/', views.get_affiliation_by_id, name='get_affiliation_by_id')
 ]

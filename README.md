@@ -61,12 +61,20 @@ Entities:
       - `limit`: natural positive number for the max amount of items returned per request
       - `offset`: natural number for the starting position of the page
 - GET `v1/hco/{id}/address/{addressId}/` - Get Address from Healthcare Organization by ID
+- GET `v1/hco/{id}/affiliation/` - Get Healthcare Organization affiliations by ID
+    - endpoints include pagination query params:
+      - `limit`: natural positive number for the max amount of items returned per request
+      - `offset`: natural number for the starting position of the page
 - GET `v1/hcp/{id}/` - Get Healthcare Provider by ID
 - GET `v1/hcp/{id}/address/` - Get Healthcare Provider adresses by ID
     - endpoints include pagination query params:
       - `limit`: natural positive number for the max amount of items returned per request
       - `offset`: natural number for the starting position of the page
 - GET `v1/hcp/{id}/address/{addressId}/` - Get Address from Healthcare Provider by ID
+- GET `v1/hcp/{id}/affiliation/` - Get Healthcare Provider affiliations by ID
+    - endpoints include pagination query params:
+      - `limit`: natural positive number for the max amount of items returned per request
+      - `offset`: natural number for the starting position of the page
 
 
 Note*: all endpoints listed above (except the authenticate) are configured to require authentication (based on Token authentication header or Session CSRF token).
@@ -161,6 +169,9 @@ Endpoint Get Healthcare Organization addresses by HCO ID:
 Endpoint Get Healthcare Organization address by HCO ID and address ID: 
 > curl -H "Authorization: Token token" -H "Content-Type: application/json"  -X GET http://localhost:8000/api/v1/hco/{id}/address/{addressId}/
 
+Endpoint Get Healthcare Organization affiliations by HCO ID: 
+> curl -H "Authorization: Token token" -H "Content-Type: application/json"  -X GET http://localhost:8000/api/v1/hco/{id}/affiliation/
+
 Endpoint Get Healthcare Provider by ID: 
 > curl -H "Authorization: Token token" -H "Content-Type: application/json"  -X GET http://localhost:8000/api/v1/hcp/{id}/
 
@@ -169,6 +180,9 @@ Endpoint Get Healthcare Provider addresses by HCP ID:
 
 Endpoint Get Healthcare Provider address by HCP ID and address ID: 
 > curl -H "Authorization: Token token" -H "Content-Type: application/json"  -X GET http://localhost:8000/api/v1/hcp/{id}/address/{addressId}/
+
+Endpoint Get Healthcare Provider affiliations by HCO ID: 
+> curl -H "Authorization: Token token" -H "Content-Type: application/json"  -X GET http://localhost:8000/api/v1/hcp/{id}/affiliation/
 
 Endpoint Get Affiliation by ID: 
 > curl -H "Authorization: Token token" -H "Content-Type: application/json"  -X GET http://localhost:8000/api/v1/affiliation/{id}/

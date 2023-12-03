@@ -4,7 +4,7 @@ from django.db.utils import DataError
 from rest_framework.test import APIRequestFactory, force_authenticate
 from django.contrib.auth.models import User
 from .models import Address, HealthCareProvider, HealthCareOrganization, Affiliation
-from .views import get_all_addresses, get_affiliation_by_id, get_all_affiliations, get_all_providers, get_healthcare_provider_by_id, get_healthcare_addresses_by_provider_by_id, get_healthcare_provider_address_by_id
+from .views import get_healthcare_provider_affiliations, get_all_addresses, get_affiliation_by_id, get_all_affiliations, get_all_providers, get_healthcare_provider_by_id, get_healthcare_addresses_by_provider_by_id, get_healthcare_provider_address_by_id
 # doc: https://docs.djangoproject.com/en/4.2/topics/testing/overview/
 # doc: https://www.django-rest-framework.org/api-guide/testing/
 
@@ -202,6 +202,46 @@ class HealthCareProviderCase(TestCase):
             'addr1': 'Address 1',
             'city': 'City 1',
             'status': 'A'
+        }.items())
+
+    def test_endpoint_get_hcp_affiliations_should_return_expected_result(self):
+        hcp = HealthCareProvider.objects.create(name='hco', status='A')
+        hcp2 = HealthCareProvider.objects.create(name='hco2', status='A')
+        affiliation1 = Affiliation.create(child_hcp_link=hcp, parent_hcp_link=hcp, status='A', type='HCP_HCP')
+        affiliation2 = Affiliation.create(child_hcp_link=hcp, parent_hcp_link=hcp2, status='A', type='HCP_HCP')
+        affiliation3 = Affiliation.create(child_hcp_link=hcp2, parent_hcp_link=hcp2, status='A', type='HCP_HCP')
+        
+        request = self.factory.get(f'/v1/hcp/{hcp.id}/affiliation/')
+        force_authenticate(request, user=self.user)
+        
+        response = get_healthcare_provider_affiliations(request, hcp.id)
+        parsed_response_headers = dict(response.headers)
+        parsed_response_data = dict(response.data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertGreaterEqual(parsed_response_headers.items(), {
+            'Content-Type': 'application/json'
+        }.items())
+        self.assertGreaterEqual(parsed_response_data.items(), {
+            'count': 2,
+            'previous': None,
+            'next': None,
+        }.items())
+        parsed_result_items = dict(parsed_response_data['results'][0])
+        self.assertGreaterEqual(parsed_result_items.items(), {
+            'id': affiliation1.id,
+            'type': 'HCP_HCP',
+            'status': 'A',
+            'parent_link': hcp.id,
+            'child_link': hcp.id
+        }.items())
+        parsed_result_items = dict(parsed_response_data['results'][1])
+        self.assertGreaterEqual(parsed_result_items.items(), {
+            'id': affiliation2.id,
+            'type': 'HCP_HCP',
+            'status': 'A',
+            'parent_link': hcp2.id,
+            'child_link': hcp.id
         }.items())
 
 
